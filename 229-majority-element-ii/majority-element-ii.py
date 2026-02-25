@@ -1,22 +1,23 @@
-class Solution(object):
-    def majorityElement(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
-        n = len(nums) // 3
-        count_tracker = {}
+class Solution:
+    def majorityElement(self, nums: List[int]) -> List[int]:
+        
+        threshold =  int(len(nums)/3 )
+        
+        
+
+
+        freq = {}
+
         for i in nums:
-            if i in count_tracker:
-                count_tracker[i] += 1
+            if i in freq:
+                freq[i] += 1
             else:
-                count_tracker[i] = 1
-            
-        answer = []    
-        for key in count_tracker:
-            if count_tracker[key] > n:
-                answer.append(key) 
+                freq[i] = 1    
+
+
+        answer = []
+        for key in freq:
+            if freq[key] > threshold:
+                answer.append(key)
 
         return answer
-
-        
