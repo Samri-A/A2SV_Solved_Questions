@@ -12,9 +12,9 @@ for _ in range(n):
 
     answer = [str( nums[0])]
 
-    for i in range(len(nums)):
+    for i in range(len(nums)-1):
         if i + 1 < len(nums) and i - 1 >= 0:
-            if nums[i+1] < nums[i] > nums[i - 1] :
+            if nums[i+1] < nums[i] > nums[i - 1] or  nums[i+1] > nums[i] < nums[i - 1]:
                 answer.append(str(nums[i]))
 
     answer.append(str(nums[-1]) )
