@@ -3,16 +3,30 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+from collections import deque
 class Solution:
     def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        head_ = head
-       
-
+        
         current_head = head
-        last = current_head.val
-        while current_head.next:
 
-            while last > current_head.next.val:
-                current_head.next = current_head.next.next
-                current_head = current_head.next
+        stack = deque()
+
+        while current_head:
+            while stack and current_head.val > stack[-1]:
+                stack.pop()
+            stack.append(current_head.val)
             
+            current_head = current_head.next
+
+
+       
+        dummy = ListNode()
+        head_ = dummy
+
+        while stack:
+            head_.next = ListNode()
+            head_ = head_.next
+            head_.val = stack.popleft()
+            
+
+        return dummy.next
