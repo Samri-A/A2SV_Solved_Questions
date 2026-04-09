@@ -4,15 +4,18 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        pivot = None
-        for i in range(1,len(nums)):  
-            if nums[i] < nums[i-1]:
-                pivot = i
-                break
+        left = 0
+        right = len(nums) - 1
 
-        if pivot is not None:
-            return nums[i]
-        else:
-            return nums[0]
+        while left < right:
+            mid = (right + left) // 2
+
+            if nums[mid] > nums[right] :
+                left = mid + 1
+            else:
+                right = mid
+
+
+        return nums[left]
         
         
