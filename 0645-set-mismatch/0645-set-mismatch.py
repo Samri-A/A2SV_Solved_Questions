@@ -1,30 +1,19 @@
 from collections import Counter
 class Solution:
     def findErrorNums(self, nums: List[int]) -> List[int]:
-        freq = {}
+        freq = Counter(nums)
 
-        current = 1
-
-        result = []
-        for i in range(len(nums)):
-
-            
-
-
-            if nums[i] in freq and freq[nums[i]] == 1:
-                result.append(nums[i])
-                freq[nums[i]] += 1
-            else:
-                freq[nums[i]] = 1
-
-            if current != nums[i]:
-                result.append(current)
-            current+=1
-            
-
-        # print(freq)
+        missing = 0
+        duplicate = 0
 
         
+        for i in range(1, len(nums)+1):
+            if i in freq and freq[i] > 1:
+                duplicate = i
+            elif i not in freq:
+                missing = i
+                 
+        
 
-        return result
+        return [duplicate ,  missing]
 
