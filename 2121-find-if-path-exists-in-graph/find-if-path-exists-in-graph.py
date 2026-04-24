@@ -1,27 +1,33 @@
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        graph = {}
-        for u, v in edges:
-            if u not in graph:
-                graph[u] = []
-            if v not in graph:
-                graph[v] = []
-            graph[u].append(v)
-            graph[v].append(u)
 
-        def dfs(source, distination, graph, visited):
-            ans = False
-            if source == distination:
-                ans = True
+        if source == destination:
+            return True
+
+
+        graph = defaultdict(list)
+
+        for v , u in edges:
+            graph[v].append(u)
+            graph[u].append(v) 
+
+        seen = set()
+        
+        def dfs(current):
+
+            if current == destination:
                 return True
 
-            for nei in graph[source]:
-                if visited[nei] == False:
-                    visited[nei] = True
-                    if dfs(nei, distination, graph, visited):
+            for n_node in graph[current]:
+
+                if n_node not in seen:
+                    seen.add(n_node)
+                    if dfs(n_node):
                         return True
 
             return False
 
-        visited = [False] * n
-        return dfs(source, destination, graph, visited)
+        return dfs(source)
+
+
+
