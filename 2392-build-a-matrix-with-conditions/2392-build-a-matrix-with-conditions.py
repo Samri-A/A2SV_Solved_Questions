@@ -63,12 +63,16 @@ class Solution:
             return []
 
         result = [[0] * k for _ in range(k)]
+        row_pos = {num:j for j , num in enumerate(sorted_row)}
+        col_pos = {num:j for j , num in enumerate(sorted_col)}
+        print(row_pos , col_pos)
 
-        for i in range(len(sorted_row)):
-            for j in range(len(sorted_col)):
-                if sorted_col[j] == sorted_row[i]:
-                    result[i][j] = sorted_col[j]
-                    continue
+        for i in range(1, k+1):
+            r = row_pos[i] 
+            c = col_pos[i]
+
+            result[r][c] = i
+                    
 
         return result
         
