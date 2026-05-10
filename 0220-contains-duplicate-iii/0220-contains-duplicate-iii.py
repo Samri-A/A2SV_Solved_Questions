@@ -1,15 +1,12 @@
-from sortedcontainers import SortedList
-
 class Solution:
-    def containsNearbyAlmostDuplicate(self, nums, k, t):
-        SList = SortedList()
-        for i in range(len(nums)):
-            if i > k: SList.remove(nums[i-k-1])   
-            pos1 = SortedList.bisect_left(SList, nums[i] - t)
-            pos2 = SortedList.bisect_right(SList, nums[i] + t)
-            
-            if pos1 != pos2 and pos1 != len(SList): return True
-            
-            SList.add(nums[i])
+    def containsNearbyAlmostDuplicate(self, nums: List[int], k: int, t: int) -> bool:
+        if t < 0: return False # edge case 
         
-        return False
+        seen = {}
+        for i, x in enumerate(nums): 
+            bkt = x//(t+1)
+            if bkt in seen and i - seen[bkt][0] <= k: return True 
+            if bkt-1 in seen and i - seen[bkt-1][0] <= k and abs(x - seen[bkt-1][1]) <= t: return True 
+            if bkt+1 in seen and i - seen[bkt+1][0] <= k and abs(x - seen[bkt+1][1]) <= t: return True 
+            seen[bkt] = (i, x) 
+        return False 
