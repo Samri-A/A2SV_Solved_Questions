@@ -4,32 +4,18 @@ class Solution:
 
         freq = Counter(words)
 
-
-        buckets = [ []  for i in range(len(words))  ]
+        freq_heap = []
+        heapq.heapify(freq_heap)
 
 
         for key in freq:
+            heapq.heappush( freq_heap , (-freq[key], key))
 
-            buckets[freq[key]].append(key)
-
-
-
-
-
-
-
-        print(buckets)
         result = []
-        for bucket in  reversed(buckets)  :
-            bucket.sort()
-            for word in bucket:
-                result.append(word)
-                if len(result) == k:
-                    return result
-            
-            if len(result) == k:
-                    return result
-        
+        for i in range(k):
+            val , word =  heapq.heappop(freq_heap)
+            result.append(word)
 
         return result
+
         
