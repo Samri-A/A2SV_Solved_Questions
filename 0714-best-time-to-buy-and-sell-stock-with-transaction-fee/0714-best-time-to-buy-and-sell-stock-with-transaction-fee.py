@@ -2,15 +2,28 @@ class Solution:
     def maxProfit(self, prices: List[int], fee: int) -> int:
         n=len(prices)
         dp=[[-1]*2 for _ in range(n)]
-        def f(day,buy):
-            if day==n:
+        def helper(day,canbuy):
+            if day == n:
                 return 0
-            if dp[day][buy]!=-1:
-                return dp[day][buy]
-            if buy:
-                profit=max(-prices[day]+f(day+1,0),f(day+1,1))
+            
+            if dp[day][canbuy] != -1:
+                return dp[day][canbuy]
+
+            buy = float("-inf")
+            sell = float("-inf")
+            
+
+            if canbuy:
+                buy = - prices[day] + helper(day+1 , False)
             else:
-                profit=max(prices[day]-fee+f(day+1,1),f(day+1,0))
-            dp[day][buy]=profit
-            return dp[day][buy]
-        return f(0,1)
+                sell = prices[day] - fee + + helper(day+1 , True)
+
+            moveon = helper(day+1 , canbuy)
+
+
+            dp[day][canbuy] = max(buy , sell  , moveon)
+            return dp[day][canbuy]
+
+            
+
+        return helper(0,1)
