@@ -1,0 +1,12 @@
+class Solution:
+    def sumAndMultiply(self, n: int) -> int:
+        if n == 0:
+            return 0
+        x = ""
+        for i in str(n):
+            if i != '0':
+                x += i
+
+        sum_ =  sum(int(x[i]) for i in range(len(x)))
+
+        return sum_ * int(x)
