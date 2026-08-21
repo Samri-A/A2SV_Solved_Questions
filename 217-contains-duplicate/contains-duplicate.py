@@ -1,15 +1,12 @@
-class Solution(object):
-    def containsDuplicate(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: bool
-        """
-        nums.sort()
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        freq = {}
+        for num in nums:
+            if num in freq:
+                return True
+            else:
+                freq[num] = 1
 
-        for i in range(len(nums)):
-            if i > 0:
-                if nums[i] == nums[i-1] : 
-                    return True
+        return False
 
-        return False 
-        
+        # what if 
