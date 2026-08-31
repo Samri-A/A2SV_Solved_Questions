@@ -1,31 +1,18 @@
-class Solution(object):
-    def groupAnagrams(self, strs):
-        """
-        :type strs: List[str]
-        :rtype: List[List[str]]
-        """
-        ordered = []
-        for i in strs:
-            ordered.append("".join(sorted(i)))
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+       res = defaultdict(list)
 
-        answer = []
-        len_un = len(ordered)
-        tracker = {}
-        pointer = 0
-        for i in range(len(ordered)):
-            if ordered[i] in tracker: continue 
-            temp = []
-            temp.append(strs[i])
-            for j in range( i + 1 , len(ordered)):
-                if ordered[i]  == ordered[j]:
-                    temp.append(strs[j])
-            
-            if len(temp) > 1:
-                answer.append(temp)
-                tracker[ordered[i]] = 1
-            else:
-                answer.append([strs[i]])
-        return answer
-                 
+       for word in strs:
+           count = [0] * 26
 
-        print(ordered)
+           for c in word:
+              count[ord(c) - ord("a")] += 1
+
+        
+           res[tuple(count)].append(word)
+
+
+       return list(res.values())
+
+
+       
